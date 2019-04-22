@@ -32,7 +32,7 @@ class m190420_052913_table_init extends Migration
             'name' => $this->string(255)->notNull(),
             'email' => $this->string(255)->notNull(),
             'department_id' => $this->integer()->notNull(),
-            'foto' => 'MEDIUMBLOB',
+            'foto' => $this->string(255),
         ]);
 
         $this->addForeignKey('fk_employees_department_id', 'employees', 'department_id', 'department', 'id', 'CASCADE', 'CASCADE');

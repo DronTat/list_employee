@@ -37,7 +37,12 @@ $this->title = 'Сотрудники';
             ],
             [
                     'label' => 'Фото',
-                    'value' => 'foto',
+                    'format' => 'raw',
+                    'value' => function($data){
+                        return Html::img(\yii\helpers\Url::toRoute($data->foto), [
+                                'style' => 'height: 70px;'
+                        ]);
+                    }
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

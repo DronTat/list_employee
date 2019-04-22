@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\UploadImageForm;
 use Yii;
 use app\models\Employees;
 use app\models\EmployeesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * EmployeeController implements the CRUD actions for Employees model.
@@ -65,13 +67,22 @@ class EmployeeController extends Controller
     public function actionCreate()
     {
         $model = new Employees();
+        $file = new UploadImageForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+            $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
+            if($url = $file->upload(Yii::$app->request->post('Employees'))){
+                $model->setFoto($url);
+                $model->save();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+
         return $this->render('create', [
             'model' => $model,
+            'file' => $file
         ]);
     }
 
@@ -104,7 +115,11 @@ class EmployeeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if($model){
+            unlink($model->foto);
+            $model->delete();
+        }
 
         return $this->redirect(['index']);
     }

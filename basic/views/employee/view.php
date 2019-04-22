@@ -32,7 +32,15 @@ $this->title = $model->name;
             'name',
             'email:email',
             'department.name',
-            'foto',
+            [
+                'label' => 'Фото',
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::img(\yii\helpers\Url::toRoute($data->foto), [
+                        'style' => 'height: 70px;'
+                    ]);
+                }
+            ],
         ],
     ]) ?>
 

@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'department_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Department::find()->all(), 'id', 'name'), ['class'=>'form-control','prompt' => '']) ?>
 
-    <?= $form->field($file, 'imageFile')->fileInput() ?>
+<!--    --><?//= $form->field($file, 'imageFile')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

@@ -17,6 +17,7 @@ use Yii;
  */
 class Employees extends \yii\db\ActiveRecord
 {
+//    public $imageFile;
     /**
      * {@inheritdoc}
      */
@@ -51,6 +52,11 @@ class Employees extends \yii\db\ActiveRecord
             'department_id' => 'Отдел',
             'foto' => 'Фото',
         ];
+    }
+
+    public function setFoto($url)
+    {
+        $this->foto = $url;
     }
 
     /**
